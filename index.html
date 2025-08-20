@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlyphLock Vault - Secure & Encrypt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .form-container {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease-in-out;
+        }
+        .form-container:hover {
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        .file-input-label {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease-in-out;
+        }
+        .file-input-label:hover {
+            border-color: #38bdf8;
+            background-color: #f0f9ff;
+        }
+        .btn-primary {
+            background-color: #0ea5e9;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #0284c7;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md">
+        <div class="form-container p-8 md:p-12">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-slate-800">GlyphLock Vault</h1>
+                <p class="text-slate-500 mt-2">Secure & Encrypt Files</p>
+            </div>
+            
+            <form action="/upload" method="post" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label for="file" class="block text-sm font-medium text-slate-700 mb-2">1. Select File(s) to Share</label>
+                    <label for="file" class="file-input-label flex flex-col items-center justify-center w-full h-32 rounded-lg cursor-pointer">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-slate-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/></svg>
+                            <p class="mb-2 text-sm text-slate-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p id="file-names" class="text-xs text-slate-500">Select one or more files</p>
+                        </div>
+                        <input type="file" name="file" id="file" required multiple class="hidden"/>
+                    </label>
+                </div>
+                <div>
+                    <label for="caption" class="block text-sm font-medium text-slate-700">2. Add a Caption</label>
+                    <input type="text" name="caption" id="caption" required class="mt-1 block w-full px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-700">3. Create a Secret Password</label>
+                    <input type="password" name="password" id="password" required class="mt-1 block w-full px-4 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500">
+                </div>
+                <div>
+                    <label for="key_image" class="block text-sm font-medium text-slate-700">4. Select GlyphLock Image (.png)</label>
+                    <input type="file" name="key_image" id="key_image" accept="image/png" required class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-50 file:text-slate-700 hover:file:bg-slate-100"/>
+                </div>
+                <button type="submit" class="w-full btn-primary text-white font-bold py-3 px-4 rounded-lg">Encrypt & Create GlyphLock</button>
+            </form>
+            <div class="text-center mt-6">
+                <a href="/decryption" class="text-sm text-sky-600 hover:underline">Need to decrypt a file?</a>
+            </div>
+        </div>
+        <footer class="text-center mt-8 text-slate-500 text-sm">
+            <p>&copy; 2025 HaiCLOP's Labs</p>
+        </footer>
+    </div>
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileNamesDisplay = document.getElementById('file-names');
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                const names = Array.from(fileInput.files).map(f => f.name).join(', ');
+                fileNamesDisplay.textContent = names;
+            } else {
+                fileNamesDisplay.textContent = 'Select one or more files';
+            }
+        });
+    </script>
+</body>
+</html>
